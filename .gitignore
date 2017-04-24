@@ -22,3 +22,6 @@ xcuserdata/
 *.xcscmblueprint
 ide_profiles/xcode/Debug/
 ide_profiles/xcode/ExtendedKF.build/
+
+cmake-build-debug/
+.idea/workspace.xml
