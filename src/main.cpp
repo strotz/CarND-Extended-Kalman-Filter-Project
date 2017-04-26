@@ -13,7 +13,7 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using std::vector;
 
-void check_arguments(int argc, char* argv[]) {
+void check_arguments(int argc, char *argv[]) {
   string usage_instructions = "Usage instructions: ";
   usage_instructions += argv[0];
   usage_instructions += " path/to/input.txt output.txt";
@@ -36,8 +36,8 @@ void check_arguments(int argc, char* argv[]) {
   }
 }
 
-void check_files(ifstream& in_file, string& in_name,
-                 ofstream& out_file, string& out_name) {
+void check_files(ifstream &in_file, string &in_name,
+                 ofstream &out_file, string &out_name) {
   if (!in_file.is_open()) {
     cerr << "Cannot open input file: " << in_name << endl;
     exit(EXIT_FAILURE);
@@ -49,7 +49,7 @@ void check_files(ifstream& in_file, string& in_name,
   }
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 
   check_arguments(argc, argv);
 
@@ -124,6 +124,8 @@ int main(int argc, char* argv[]) {
     gt_pack_list.push_back(gt_package);
   }
 
+  cout << "Data loaded" << endl;
+
   // Create a Fusion EKF instance
   FusionEKF fusionEKF;
 
@@ -139,22 +141,26 @@ int main(int argc, char* argv[]) {
     fusionEKF.ProcessMeasurement(measurement_pack_list[k]);
 
     // output the estimation
-    out_file_ << fusionEKF.ekf_.x_(0) << "\t";
-    out_file_ << fusionEKF.ekf_.x_(1) << "\t";
-    out_file_ << fusionEKF.ekf_.x_(2) << "\t";
-    out_file_ << fusionEKF.ekf_.x_(3) << "\t";
+    out_file_ << fusionEKF.ekf_.x_(0) << "\t"
+      << fusionEKF.ekf_.x_(1) << "\t"
+      << fusionEKF.ekf_.x_(2) << "\t"
+      << fusionEKF.ekf_.x_(3) << "\t";
 
     // output the measurements
     if (measurement_pack_list[k].sensor_type_ == MeasurementPackage::LASER) {
+
       // output the estimation
       out_file_ << measurement_pack_list[k].raw_measurements_(0) << "\t";
       out_file_ << measurement_pack_list[k].raw_measurements_(1) << "\t";
+
     } else if (measurement_pack_list[k].sensor_type_ == MeasurementPackage::RADAR) {
+
       // output the estimation in the cartesian coordinates
       float ro = measurement_pack_list[k].raw_measurements_(0);
       float phi = measurement_pack_list[k].raw_measurements_(1);
       out_file_ << ro * cos(phi) << "\t"; // p1_meas
       out_file_ << ro * sin(phi) << "\t"; // ps_meas
+
     }
 
     // output the ground truth packages

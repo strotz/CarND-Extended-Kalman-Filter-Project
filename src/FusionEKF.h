@@ -33,8 +33,9 @@ public:
 
 private:
 
-  void init(const MeasurementPackage& measurement_pack);
+  void initialize(const MeasurementPackage &measurement_pack);
   void predict(const MeasurementPackage& measurement_pack);
+  void update(const MeasurementPackage& measurement_pack);
 
 
 private:
