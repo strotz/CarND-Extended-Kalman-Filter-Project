@@ -38,6 +38,28 @@ void KalmanFilter::Update(const VectorXd &z) {
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  // TODO: * update the state by using Extended Kalman Filter equations
-  throw std::exception();
+  // h(x)
+  double px = x_(0);
+  double py = x_(1);
+  double vx = x_(2);
+  double vy = x_(3);
+
+  double hx1 = sqrt(px * px + py * py);
+  double hx2 = atan2(py, px);
+  double hx3 = (px * vx + py * vy) / hx1;
+
+  VectorXd hx = VectorXd(3);
+  hx << hx1, hx2, hx3;
+
+  VectorXd y = z - hx;
+  MatrixXd Ht = H_.transpose();
+  MatrixXd S = H_ * P_ * Ht + R_;
+  MatrixXd Si = S.inverse();
+  MatrixXd K = P_ * Ht * Si;
+
+  // new estimate
+  x_ = x_ + (K * y);
+  long x_size = x_.size();
+  MatrixXd I = MatrixXd::Identity(x_size, x_size);
+  P_ = (I - K * H_) * P_;
 }
