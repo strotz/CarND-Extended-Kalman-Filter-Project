@@ -124,8 +124,6 @@ int main(int argc, char *argv[]) {
     gt_pack_list.push_back(gt_package);
   }
 
-  cout << "Data loaded" << endl;
-
   // Create a Fusion EKF instance
   FusionEKF fusionEKF;
 
@@ -175,7 +173,8 @@ int main(int argc, char *argv[]) {
 
   // compute the accuracy (RMSE)
   Tools tools;
-  cout << "Accuracy - RMSE:" << endl << tools.CalculateRMSE(estimations, ground_truth) << endl;
+  VectorXd rmse = tools.CalculateRMSE(estimations, ground_truth);
+  cout << "RMSE" << endl << rmse << endl;
 
   // close files
   if (out_file_.is_open()) {

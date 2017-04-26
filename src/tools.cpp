@@ -18,12 +18,12 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd>& estimations,
   rmse << 0, 0, 0, 0;
 
   if (estimations.size() == 0) {
-    cout << "CalculateRMSE () - Error - the estimation vector size should not be zero" << endl;
+    //cout << "CalculateRMSE () - Error - the estimation vector size should not be zero" << endl;
     return rmse;
   }
 
   if (estimations.size() != ground_truth.size()) {
-    cout << "CalculateRMSE () - Error - the estimation vector size should equal ground truth vector size" << endl;
+    //cout << "CalculateRMSE () - Error - the estimation vector size should equal ground truth vector size" << endl;
     return rmse;
   }
 
@@ -61,7 +61,7 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
 
   //check division by zero
   if (fabs(d) < 0.0001) {
-    cout << "CalculateJacobian () - Error - Division by Zero" << endl;
+    // cout << "CalculateJacobian () - Error - Division by Zero" << endl;
     return Hj;
   }
 

@@ -71,7 +71,7 @@ FusionEKF::~FusionEKF() {}
 void FusionEKF::initialize(const MeasurementPackage &measurement_pack) {
 
   // first measurement
-  cout << "EKF: " << endl;
+  // cout << "EKF: " << endl;
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
 
     float ro = measurement_pack.raw_measurements_(0);
@@ -88,8 +88,6 @@ void FusionEKF::initialize(const MeasurementPackage &measurement_pack) {
   }
 
   previous_timestamp_ = measurement_pack.timestamp_;
-
-  cout << "initialized" << endl;
 }
 
 /*****************************************************************************
@@ -152,6 +150,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   update(measurement_pack);
 
   // print the output
-  cout << "x_ = " << ekf_.x_ << endl;
-  cout << "P_ = " << ekf_.P_ << endl;
+  // cout << "x_ = " << ekf_.x_ << endl;
+  // cout << "P_ = " << ekf_.P_ << endl;
 }
