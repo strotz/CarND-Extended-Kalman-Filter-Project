@@ -18,19 +18,19 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd>& estimations,
   rmse << 0, 0, 0, 0;
 
   if (estimations.size() == 0) {
-    //cout << "CalculateRMSE () - Error - the estimation vector size should not be zero" << endl;
+    cout << "CalculateRMSE () - Error - the estimation vector size should not be zero" << endl;
     return rmse;
   }
 
   if (estimations.size() != ground_truth.size()) {
-    //cout << "CalculateRMSE () - Error - the estimation vector size should equal ground truth vector size" << endl;
+    cout << "CalculateRMSE () - Error - the estimation vector size should equal ground truth vector size" << endl;
     return rmse;
   }
 
   //accumulate squared residuals
   for (int i = 0; i < estimations.size(); ++i) {
-    VectorXd temp = estimations[i] - ground_truth[i];
-    rmse = rmse.array() + temp.array() * temp.array();
+    VectorXd residual = estimations[i] - ground_truth[i];
+    rmse = rmse.array() + residual.array() * residual.array();
   }
 
   //calculate the mean
@@ -60,8 +60,8 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float d_3_2= d * d_1_2;
 
   //check division by zero
-  if (fabs(d) < 0.0001) {
-    // cout << "CalculateJacobian () - Error - Division by Zero" << endl;
+  if (d < 0.0001) {
+    cout << "CalculateJacobian () - Error - Division by Zero" << endl;
     return Hj;
   }
 
