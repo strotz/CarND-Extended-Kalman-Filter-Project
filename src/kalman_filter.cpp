@@ -56,7 +56,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
   if (hx1 < 0.0001)
   {
-    cout << "UpdateEKF() - Devision By Zero" << endl;
+    cout << "UpdateEKF() - Division By Zero" << endl;
   }
 
   double hx2 = atan2(py, px);
