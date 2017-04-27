@@ -66,5 +66,12 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   hx << hx1, hx2, hx3;
 
   VectorXd y = z - hx;
+
+  // need to move rho to range (-PI,+PI)
+  while (y[1] < -M_PI)
+    y[1] += 2 * M_PI;
+  while (y[1] > M_PI)
+    y[1] -= 2 * M_PI;
+
   UpdateByError(y);
 }
