@@ -25,3 +25,4 @@ ide_profiles/xcode/ExtendedKF.build/
 
 cmake-build-debug/
 .idea/workspace.xml
+.idea/dictionaries/
